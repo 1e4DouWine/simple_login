@@ -1,3 +1,4 @@
+import { feishuConfig } from '@/constants/feishu';
 import { feishuAuthCallback } from '@/services/auth';
 import { clearLoginStatus, setLoginStatus } from '@/utils/auth';
 import { useNavigate, useSearchParams } from '@umijs/max';
@@ -37,7 +38,11 @@ const AuthCallbackPage: React.FC = () => {
       if (code) {
         try {
           // 调用后端API处理授权回调
-          const response = await feishuAuthCallback(code, state);
+          const response = await feishuAuthCallback(
+            code,
+            state,
+            feishuConfig.redirectUri,
+          );
 
           // 检查响应状态
           if (response.code === 0) {
